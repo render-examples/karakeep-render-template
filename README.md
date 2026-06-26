@@ -1,129 +1,150 @@
-<div align="center">
-    <a href="https://github.com/karakeep-app/karakeep/actions/workflows/ci.yml">
-        <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/karakeep-app/karakeep/ci.yml" />
-    </a>
-    <a href="https://github.com/karakeep-app/karakeep/releases">
-        <img alt="GitHub Release" src="https://img.shields.io/github/v/release/karakeep-app/karakeep" />
-    </a>
-    <a href="https://discord.gg/NrgeYywsFh">
-        <img alt="Discord" src="https://img.shields.io/discord/1223681308962721802?label=chat%20on%20discord" />
-    </a>
-    <a href="https://hosted.weblate.org/engage/hoarder/">
-        <img src="https://hosted.weblate.org/widget/hoarder/hoarder/svg-badge.svg" alt="Translation status" />
-    </a>
-    <a href="https://render.com/deploy?repo=https://github.com/karakeep-app/karakeep">
-        <img alt="Deploy to Render" src="https://render.com/images/deploy-to-render-button.svg" height="20" />
-    </a>
-</div>
+# Karakeep on Render
 
-# <img height="50px" src="./screenshots/logo.png" />
+> Self-hosted bookmark-everything app: official Karakeep AIO image, Meilisearch full-text search, and headless Chrome for crawling.
 
-Karakeep (previously Hoarder) is a self-hostable bookmark-everything app with a touch of AI for the data hoarders out there.
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy-template/api/github/start?template_repo=karakeep-render-template)
 
-![homepage screenshot](https://github.com/karakeep-app/karakeep/blob/main/screenshots/homepage.png?raw=true)
+**Template repository:** [render-examples/karakeep-render-template](https://github.com/render-examples/karakeep-render-template)
 
-## Features
+Deploy [Karakeep](https://github.com/karakeep-app/karakeep) on Render without building the Turborepo monorepo. This template uses the official `ghcr.io/karakeep-app/karakeep` image, wires Meilisearch and headless Chrome on Render's private network, and generates auth secrets for you.
 
-- 🔗 Bookmark links, take simple notes and store images and pdfs.
-- ⬇️ Automatic fetching for link titles, descriptions and images.
-- 📋 Sort your bookmarks into lists.
-- 👥 Collaborate with others on the same list.
-- 🔎 Full text search of all the content stored.
-- ✨ LLM-based automatic tagging and summarization. With supports for local models using ollama!
-- 🤖 LLM Agents (e.g. OpenClaw, Hermes) friendly with powerful [CLI](https://docs.karakeep.app/integrations/command-line), and [official skills](https://docs.karakeep.app/integrations/agentic-skills).
-- ⚙️ Rule-based engine for customized management.
-- 🎆 OCR for extracting text from images.
-- 🔖 [Chrome plugin](https://chromewebstore.google.com/detail/karakeep/kgcjekpmcjjogibpjebkhaanilehneje), [Firefox addon](https://addons.mozilla.org/en-US/firefox/addon/karakeep/), and [Safari extension](https://apps.apple.com/gb/app/karakeep-app/id6479258022?platform=mac) for quick bookmarking.
-- 📱 An [iOS app](https://apps.apple.com/us/app/karakeep-app/id6479258022), and an [Android app](https://play.google.com/store/apps/details?id=app.hoarder.hoardermobile&pcampaignid=web_share).
-- 📰 Auto hoarding from RSS feeds.
-- 🔌 REST API and multiple clients.
-- 🌐 Multi-language support.
-- 🖍️ Mark and store highlights from your hoarded content.
-- 🗄️ Full page archival (using [monolith](https://github.com/Y2Z/monolith)) to protect against link rot.
-- ▶️ Auto video archiving using [yt-dlp](https://github.com/yt-dlp/yt-dlp).
-- ☑️ Bulk actions support.
-- 🔐 SSO support.
-- 🌙 Dark mode support.
-- 💾 Self-hosting first.
-- ⬇️ Bookmark importers from Chrome, Pocket, Linkwarden, Omnivore, Tab Session Manager.
-- 🔄 Automatic sync with browser bookmarks via [floccus](https://floccus.org/).
-- [Planned] Offline reading on mobile, semantic search across bookmarks, ...
+![Karakeep on Render](./assets/hero.png)
 
-**⚠️ This app is under heavy development.**
+**At a glance:** ~$24–28/mo (Oregon, Starter plans) · first deploy ~5–10 min · **Starter** web plan · no LLM keys at Apply time
 
-## Documentation
+---
 
-- [Installation](https://docs.karakeep.app/Installation/docker)
-- [Configuration](https://docs.karakeep.app/configuration)
-- [Screenshots](https://docs.karakeep.app/screenshots)
-- [Security Considerations](https://docs.karakeep.app/security-considerations)
-- [Development](https://docs.karakeep.app/Development/setup)
+## Deploy
 
-## Demo
+1. Click **[Deploy to Render](https://render.com/deploy-template/api/github/start?template_repo=karakeep-render-template)** and fork into your GitHub account.
+2. On Apply, confirm `karakeep`, `meilisearch`, `chrome`, and both disks. Leave `OPENAI_API_KEY` empty.
+3. Wait for **Live** (~5–10 min).
+4. Open the **`karakeep`** web service URL and create your account.
+5. Optional: set `OPENAI_API_KEY` on the **`karakeep`** service for AI tagging and summarization.
 
-You can access the demo at [https://try.karakeep.app](https://try.karakeep.app). Login with the following creds:
-
-```
-email: demo@karakeep.app
-password: demodemo
+```bash
+curl -sS https://<your-service>.onrender.com/api/health
+# {"status":"ok"}
 ```
 
-The demo is seeded with some content, but it's in read-only mode to prevent abuse.
+Docs: [docs.karakeep.app](https://docs.karakeep.app)
 
-## About the name
+---
 
-The name Karakeep is inspired by the Arabic word "كراكيب" (karakeeb), a colloquial term commonly used to refer to miscellaneous clutter, odds and ends, or items that may seem disorganized but often hold personal value or hidden usefulness. It evokes the image of a messy drawer or forgotten box, full of stuff you can't quite throw away—because somehow, it matters (or more likely, because you're a hoarder!).
+## What's included
 
-## Stack
+```mermaid
+flowchart LR
+  user["Browser / extensions"] --> web["karakeep"]
+  web --> meili[("Meilisearch")]
+  web --> disk[/"5 GB disk"/]
+  web --> chrome["headless Chrome"]
+```
 
-- [NextJS](https://nextjs.org/) for the web app. Using app router.
-- [Drizzle](https://orm.drizzle.team/) for the database and its migrations.
-- [NextAuth](https://next-auth.js.org) for authentication.
-- [tRPC](https://trpc.io) for client->server communication.
-- [Puppeteer](https://pptr.dev/) for crawling the bookmarks.
-- [OpenAI](https://openai.com/) because AI is so hot right now.
-- [Meilisearch](https://meilisearch.com) for the full content search.
+| Resource | Plan | Role |
+|----------|------|------|
+| `karakeep` | Starter | Official AIO image + workers, SQLite on disk at `/data` |
+| `meilisearch` | Starter | Full-text search (`getmeili/meilisearch`) |
+| `chrome` | Starter | Crawling, screenshots, JS execution |
+| `karakeep-data` | 5 GB disk | Bookmarks, assets, SQLite |
+| `meilisearch-data` | 1 GB disk | Search index |
 
-## Why did I build it?
+Default region: **oregon** (change in [`render.yaml`](./render.yaml)).
 
-I browse reddit, twitter and hackernews a lot from my phone. I frequently find interesting stuff (articles, tools, etc) that I'd like to bookmark and read later when I'm in front of a laptop. Typical read-it-later apps usecase. Initially, I was using [Pocket](https://getpocket.com) for that. Then I got into self-hosting and I wanted to self-host this usecase. I used [memos](https://github.com/usememos/memos) for those quick notes and I loved it but it was lacking some features that I found important for that usecase such as link previews and automatic tagging (more on that in the next section).
+**Use it for:** read-it-later · link archiving · AI-tagged bookmarks · team lists · RSS hoarding
 
-I'm a systems engineer in my day job (and have been for the past 7 years). I didn't want to get too detached from the web development world. I decided to build this app as a way to keep my hand dirty with web development, and at the same time, build something that I care about and use every day.
+---
 
-## Alternatives
+## Environment variables
 
-- [memos](https://github.com/usememos/memos): I love memos. I have it running on my home server and it's one of my most used self-hosted apps. It doesn't, however, archive or preview the links shared in it. It's just that I dump a lot of links there and I'd have loved if I'd be able to figure which link is that by just looking at my timeline. Also, given the variety of things I dump there, I'd have loved if it does some sort of automatic tagging for what I save there. This is exactly the usecase that I'm trying to tackle with Karakeep.
-- [mymind](https://mymind.com/): Mymind is the closest alternative to this project and from where I drew a lot of inspirations. It's a commercial product though.
-- [raindrop](https://raindrop.io): A polished open source bookmark manager that supports links, images and files. It's not self-hostable though.
-- Bookmark managers (mostly focused on bookmarking links):
-    - [Pocket](https://getpocket.com) (Dead): Pocket is what hooked me into the whole idea of read-it-later apps. I used it [a lot](https://blog.mbassem.com/2019/01/27/favorite-articles-2018/). However, I recently got into home-labbing and became obsessed with the idea of running my services in my home server. Karakeep is meant to be a self-hosting first app. Mozilla recently announced that it's shutting down pocket.
-    - [Linkwarden](https://linkwarden.app/): An open-source self-hostable bookmark manager that I ran for a bit in my homelab. It's focused mostly on links and supports collaborative collections.
-    - [Wallabag](https://wallabag.it): Wallabag is a well-established open source read-it-later app written in php.
-    - [Shiori](https://github.com/go-shiori/shiori): Shiori is meant to be an open source pocket clone written in Go.
+**At Apply:** no secrets required.
 
-## Translations
+**Auto-generated (do not rotate casually):**
 
-Karakeep uses Weblate for managing translations. If you want to help translate Karakeep, you can do so [here](https://hosted.weblate.org/engage/hoarder/).
+| Variable | Purpose |
+|----------|---------|
+| `NEXTAUTH_SECRET` | Session signing |
+| `MEILI_MASTER_KEY` | Shared Meilisearch auth (karakeep + meilisearch) |
 
-## Karakeep Cloud ☁️
+**Wired for you:** `NEXTAUTH_URL`, `MEILI_ADDR`, `BROWSER_WEB_URL` (via private DNS host), `DATA_DIR`.
 
-If you're not comfortable with self-hosting, you can use our managed Karakeep cloud at [cloud.karakeep.app](https://cloud.karakeep.app). Cloud subscriptions support the development of Karakeep.
+<details>
+<summary>Blueprint defaults and optional overrides</summary>
 
-## Support
+Set in [`render.yaml`](./render.yaml):
 
-If you're enjoying using Karakeep, drop a ⭐️ on the repo!
+| Variable | Value |
+|----------|-------|
+| `DATA_DIR` | `/data` |
+| `MEILI_ADDR` | `http://meilisearch:7700` |
+| `DB_WAL_MODE` | `true` |
 
-<a href="https://www.buymeacoffee.com/mbassem" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+Optional after deploy: `OPENAI_API_KEY`, `OLLAMA_BASE_URL`, and others listed in [.env.example](./.env.example) and [Karakeep env docs](https://docs.karakeep.app/configuration/environment-variables).
 
-## Community Channels
+</details>
 
-- Join us on [Discord](https://discord.gg/NrgeYywsFh).
-- Follow us on Twitter: [@karakeep_app](https://x.com/karakeep_app).
+---
 
-## License
+## Cost
 
-Karakeep is licensed under [AGPL-3.0](https://github.com/karakeep-app/karakeep/blob/main/LICENSE) and owned by [Localhost Labs Ltd](https://localhostlabs.co.uk).
+| Resource | ~USD/mo |
+|----------|--------:|
+| `karakeep` (Starter) | 7 |
+| `meilisearch` (Starter) | 7 |
+| `chrome` (Starter) | 7 |
+| 6 GB disks (5 + 1) | ~3 |
+| **Total** | **~24–28** |
 
-## Star History
+LLM usage is separate. Upgrade `karakeep` to **Standard** if you OOM on large imports or heavy crawling.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=karakeep-app/karakeep&type=Date)](https://star-history.com/#karakeep-app/karakeep&Date)
+---
+
+## Customize
+
+- **Pin Karakeep version:** change the `FROM` tag in [`docker/Dockerfile.render-karakeep`](./docker/Dockerfile.render-karakeep), push, Sync Blueprint.
+- **Custom domain:** add on the `karakeep` web service in the Dashboard (TLS automatic).
+- **Disable signups:** set `DISABLE_SIGNUPS=true` on `karakeep` after creating your account.
+
+**Ops:** Disk snapshots via Render. Logs: Dashboard → **karakeep** → **Logs**, or `render logs -r <id> --tail`. Disk = single instance only on the web service.
+
+---
+
+## Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| Chrome pserv exit 128 | Do not use `dockerCommand` on `runtime: image`. This template builds chrome from [`Dockerfile.render-chrome`](./docker/Dockerfile.render-chrome). |
+| Crawling fails / no screenshots | Confirm `chrome` pserv is **Live**. Check `BROWSER_WEB_HOST` is set (entrypoint builds `BROWSER_WEB_URL`). |
+| Search disabled | `MEILI_MASTER_KEY` must match on `karakeep` and `meilisearch` (shared env group handles this). |
+| Login loops | Confirm `NEXTAUTH_URL` matches your public web URL (wired from `RENDER_EXTERNAL_URL`). |
+
+More issues: [GitHub issues](https://github.com/render-examples/karakeep-render-template/issues) · upstream [Karakeep](https://github.com/karakeep-app/karakeep/issues)
+
+---
+
+## FAQ
+
+**LLM keys at deploy?** No. Add `OPENAI_API_KEY` after sign-in if you want AI tagging.
+
+**Fork manually?** No. One-click creates your fork.
+
+**Free tier?** Starter paid plans required for web + two private services + disks.
+
+**Same as Docker Compose?** Same three services; Render uses private DNS slugs instead of compose service names.
+
+---
+
+## Limits
+
+- **Disk on web service** limits `karakeep` to one instance (no autoscaling)
+- **Starter plan** may OOM on very large libraries; bump to Standard if needed
+- **No bundled Ollama** in this template (add your own service if needed)
+- **Same region** for all three services and disks
+
+---
+
+## Security & license
+
+TLS at Render's edge. Protect `NEXTAUTH_SECRET` and `MEILI_MASTER_KEY`. Report upstream vulns to [karakeep-app/karakeep](https://github.com/karakeep-app/karakeep/security).
+
+- **Karakeep:** [AGPL-3.0](https://github.com/karakeep-app/karakeep/blob/main/LICENSE)
